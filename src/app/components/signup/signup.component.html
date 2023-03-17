@@ -1,0 +1,50 @@
+<div class="h-screen bg-slate-600 flex justify-center items-center">
+    <form [formGroup]="signUpForm">
+         <h3> Login</h3>
+         <small *ngIf="signUpForm.controls['username'].dirty && signUpForm.hasError('required','username')" class="text-red-600">Muss gesetzt sein</small>
+         <div>
+             <label>User Name</label>
+             <input type="text" 
+                 formControlName="username" 
+                 class="mb-3 ml-3 rounded"
+                 placeholder="Benutzername eingeben" />
+         </div>
+         <small *ngIf="signUpForm.controls['password'].dirty && signUpForm.hasError('required','password')" class="text-red-600">Muss gesetzt sein</small>
+         <div class="flex">
+             <label>Password</label>
+             <input [type]="type" 
+                 formControlName="password" 
+                 class="mb-3 ml-3 rounded"
+                 placeholder="Password eingeben" />
+             <span (click)="hideShowPassword()">Show</span>
+         </div>
+         <small *ngIf="signUpForm.controls['firstname'].dirty && signUpForm.hasError('required','firstname')" class="text-red-600">Muss gesetzt sein</small>
+         <div>
+             <label>First Name</label>
+             <input type="text" 
+                 formControlName="firstname" 
+                 class="mb-3 ml-3 rounded"
+                 placeholder="Vorname eingeben" />
+         </div>
+         <small *ngIf="signUpForm.controls['lastname'].dirty && signUpForm.hasError('required','lastname')" class="text-red-600">Muss gesetzt sein</small>
+         <div>
+             <label>Last Name</label>
+             <input type="text" 
+                 formControlName="lastname" 
+                 class="mb-3 ml-3 rounded"
+                 placeholder="Nachname eingeben" />
+         </div>
+         <small *ngIf="signUpForm.controls['email'].dirty && signUpForm.hasError('required','email')" class="text-red-600">Muss gesetzt sein</small>
+         <div>
+             <label>Email</label>
+             <input type="text" 
+                 formControlName="email" 
+                 class="mb-3 ml-3 rounded"
+                 placeholder="Nachname eingeben" />
+         </div>
+         <span>Hast du schon einen Account?
+             <a routerLink="/login">Login</a>
+         </span>
+         <button (click) ="onSubmit()" type="submit">Sign Up</button>
+     </form>    
+ </div>

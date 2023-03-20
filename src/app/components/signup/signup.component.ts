@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup,FormBuilder,Validators, FormControl } from '@angular/forms';
+import { Route, Router } from '@angular/router';
+import { AuthentificationService } from 'src/app/services/authentification.service';
 
 @Component({
   selector: 'app-signup',
@@ -11,7 +13,7 @@ export class SignupComponent implements OnInit{
   signUpForm:FormGroup|any;
   type:string ="password";
   passwordState:boolean = false;
-  constructor(private fb:FormBuilder){}
+  constructor(private fb:FormBuilder, private authentification:AuthentificationService,private router:Router){}
 
   ngOnInit(): void {
     this.signUpForm = this.fb.group({
@@ -28,12 +30,22 @@ export class SignupComponent implements OnInit{
     this.passwordState ? this.type = "text" : this.type = "password";
   }
 
-  onSubmit()
+  onSignUp()
   {
     if(this.signUpForm.valid)
     {
       console.log(this.signUpForm.value);
-      //send the objkect to database
+      this.authentification.signUp(this.signUpForm.value)
+      .subscribe({
+        next:(res=>{
+            alert(res.message)
+            this.signUpForm.reset();
+            this.router.navigate(["login"]);
+          })
+          ,error:(err=>{
+            alert(err.message)
+          })
+      })
     }
     else{
       //throw error
